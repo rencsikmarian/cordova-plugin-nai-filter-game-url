@@ -32,7 +32,7 @@
     
     // Get the scheme and hostname
     NSString *scheme = @"ionic";
-    NSString *hostname = @"localhost";
+    NSString *hostname = @"localhost:8100";
     
     self.appUrl = [NSString stringWithFormat:@"%@://%@", scheme, hostname];
     self.redirectAppUrl = self.appUrl;
@@ -44,16 +44,25 @@
 - (BOOL)shouldOverrideLoadWithRequest:(NSURLRequest*)request navigationType:(NSInteger)navigationType {
     NSLog(@"✅ shouldOverrideLoad called with URL: %@", request.URL.absoluteString);
     
-    if (!request.URL) {
-        return NO; // let WebView handle it
-    }
-    
-    NSString *urlString = request.URL.absoluteString;
-    NSString *host = request.URL.host;
-    
-    if (!host) {
-        return NO; // let WebView handle it
-    }
+      if (!request.URL) {
+          NSLog(@"❌ No URL present in request");
+          return YES; // let WebView handle it
+      }
+      
+      NSString *urlString = request.URL.absoluteString;
+      NSString *scheme = request.URL.scheme;
+      NSString *host = request.URL.host;
+      
+      // Allow ionic:// scheme to pass through
+      if ([scheme isEqualToString:@"ionic"]) {
+          NSLog(@"✅ Allowing ionic scheme to pass through");
+          return YES; // let WebView handle it
+      }
+      
+      if (!host) {
+          NSLog(@"❌ No host present in URL");
+          return YES; // let WebView handle it
+      }
     
     BOOL isBlocked = NO;
     
@@ -101,13 +110,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSURL *redirectURL = [NSURL URLWithString:self.redirectAppUrl];
             if (redirectURL) {
-                [(WKWebView*)self.webViewEngine.webView loadRequest:[NSURLRequest requestWithURL:redirectURL]];
+              [(WKWebView*)self.webViewEngine loadRequest:[NSURLRequest requestWithURL:redirectURL]];
             }
         });
-        return YES; // we handled the request
+        return NO; // we handled the request
     }
     
-    return NO; // let WebView handle it
+    return YES; // let WebView handle it
 }
 
 @end 
