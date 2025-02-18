@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="cordova-plugin-nai-filter-game-url"
+    version="1.0.0">
+    
+    <name>NAIFilterGameUrl</name>
+    <description>Cordova plugin to filter game URL requests in WebView</description>
+    <license>MIT</license>
+    
+    <engines>
+        <engine name="cordova" version=">=9.0.0" />
+        <engine name="cordova-ios" version=">=6.0.0" />
+    </engines>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="NAIFilterGameUrl">
+                <param name="ios-package" value="NAIFilterGameUrlPlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        
+        <header-file src="src/ios/NAIFilterGameUrlPlugin.h" />
+        <source-file src="src/ios/NAIFilterGameUrlPlugin.m" />
+    </platform>
+</plugin> 

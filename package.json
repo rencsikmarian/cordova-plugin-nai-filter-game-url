@@ -1,0 +1,36 @@
+{
+  "name": "cordova-plugin-nai-filter-game-url",
+  "version": "1.0.0",
+  "description": "Cordova plugin to filter and redirect game URLs on iOS",
+  "cordova": {
+    "id": "cordova-plugin-nai-filter-game-url",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-ios",
+    "url-filter",
+    "game-url",
+    "cordova-plugin"
+  ],
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova": ">=9.0.0",
+        "cordova-ios": ">=6.0.0"
+      }
+    }
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+} 
