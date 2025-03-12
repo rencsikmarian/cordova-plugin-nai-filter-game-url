@@ -102,6 +102,12 @@
                 break;
             }
         }
+        if ([host containsString:@"lobbyiframelaunch"]) {
+            NSLog(@"NAIFilterGameUrlPlugin: Matched blocked domain 'lobbyiframelaunch'");
+            self.redirectAppUrl = self.appUrl;
+            isBlocked = YES;
+            break;
+        }
     }
     
     if (isBlocked) {
