@@ -72,7 +72,9 @@
             NSString *scheme = request.URL.scheme ?: @"";
             
             if ([scheme isEqualToString:@"https"]) {
-                self.redirectAppUrl = [[[urlString
+                self.redirectAppUrl = [[[[urlString
+                    stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"https://%@", blockedDomain]
+                    withString:self.appUrl]
                     stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"https://staging.%@", blockedDomain]
                     withString:self.appUrl]
                     stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"https://beta.%@", blockedDomain]
@@ -80,7 +82,9 @@
                     stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"https://www.%@", blockedDomain]
                     withString:self.appUrl];
             } else if ([scheme isEqualToString:@"http"]) {
-                self.redirectAppUrl = [[[urlString
+                self.redirectAppUrl = [[[[urlString
+                    stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"http://%@", blockedDomain]
+                    withString:self.appUrl]
                     stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"http://staging.%@", blockedDomain]
                     withString:self.appUrl]
                     stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"http://beta.%@", blockedDomain]
