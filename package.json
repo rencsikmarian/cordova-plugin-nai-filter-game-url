@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-nai-filter-game-url",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cordova plugin to filter and redirect game URLs on iOS",
   "cordova": {
     "id": "cordova-plugin-nai-filter-game-url",

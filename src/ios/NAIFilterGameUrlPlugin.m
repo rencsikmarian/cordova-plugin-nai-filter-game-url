@@ -49,7 +49,7 @@
           return YES; // let WebView handle it
       }
       
-      NSString *urlString = request.URL.absoluteString;
+      NSString *urlString = [request.URL.absoluteString lowercaseString];
       NSString *scheme = request.URL.scheme;
       NSString *host = request.URL.host;
       
@@ -96,7 +96,7 @@
             break;
         }
         
-        NSString *openUrlParam = @"OpenURL?url=";
+        NSString *openUrlParam = @"openurl?url=";
         if ([urlString containsString:openUrlParam]) {
             NSArray *components = [urlString componentsSeparatedByString:openUrlParam];
             if (components.count > 1 && [[components lastObject] containsString:blockedDomain]) {
@@ -108,6 +108,12 @@
         }
         if ([host containsString:@"lobbyiframelaunch"]) {
             NSLog(@"NAIFilterGameUrlPlugin: Matched blocked domain 'lobbyiframelaunch'");
+            self.redirectAppUrl = self.appUrl;
+            isBlocked = YES;
+            break;
+        }
+        if ([urlString hasSuffix:@"/lobbyiframelaunch"]) {
+            NSLog(@"NAIFilterGameUrlPlugin: Matched URL ending with '/lobbyiframelaunch'");
             self.redirectAppUrl = self.appUrl;
             isBlocked = YES;
             break;
