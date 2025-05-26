@@ -70,6 +70,19 @@
         if ([host containsString:blockedDomain]) {
             NSLog(@"NAIFilterGameUrlPlugin: Matched host: %@", host);
             NSString *scheme = request.URL.scheme ?: @"";
+            NSArray *allowedPrefixes = @[@"", @"www.", @"staging.", @"beta."];
+            BOOL shouldRedirect = NO;
+            
+            for (NSString *prefix in allowedPrefixes) {
+                if ([host isEqualToString:[NSString stringWithFormat:@"%@%@", prefix, blockedDomain]]) {
+                    shouldRedirect = YES;
+                    break;
+                }
+            }
+            
+            if (!shouldRedirect) {
+                break;
+            }
             
             if ([scheme isEqualToString:@"https"]) {
                 self.redirectAppUrl = [[[[urlString
